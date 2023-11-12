@@ -1,3 +1,5 @@
+CREATE DATABASE birds_database;
+
 CREATE SCHEMA IF NOT EXISTS content;
 
 CREATE TABLE IF NOT EXISTS content.bird_statuses (

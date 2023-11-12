@@ -1,10 +1,11 @@
 version: '3'
 services:
-  database:
-    image: postgres
-    container_name: birds-database
+  postgresql_database:
+    build:
+      context: postgresql-database
+      dockerfile: postgresql.Dockerfile
     env_file:
-      - ./.env
+      - ./postgresql-database/postgresql.env
     ports:
       - "5432:5432"
     volumes:

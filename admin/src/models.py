@@ -1,3 +1,4 @@
+import uuid
 from uuid import UUID
 from datetime import datetime
 
@@ -17,7 +18,9 @@ class BirdStatus(Base):
 	__tablename__ = 'bird_statuses'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(primary_key=True)
+	id: Mapped[UUID] = mapped_column(
+		postgresql.UUID, primary_key=True, default=uuid.uuid4
+	)
 	status_name: Mapped[str] = mapped_column(String(30))
 
 
@@ -26,7 +29,9 @@ class BirdFamily(Base):
 	__tablename__ = 'bird_families'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(primary_key=True)
+	id: Mapped[UUID] = mapped_column(
+		postgresql.UUID, primary_key=True, default=uuid.uuid4
+	)
 	family_name: Mapped[str] = mapped_column(Text())
 	description: Mapped[str] = mapped_column(Text())
 
@@ -35,7 +40,9 @@ class BirdLocation(Base):
 	__tablename__ = 'bird_locations'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(primary_key=True)
+	id: Mapped[UUID] = mapped_column(
+		postgresql.UUID, primary_key=True, default=uuid.uuid4
+	)
 	longitude: Mapped[float] = mapped_column(Float())
 	latitude: Mapped[float] = mapped_column(Float())
 
@@ -43,7 +50,9 @@ class User(Base):
 	__tablename__ = 'users'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(primary_key=True)
+	id: Mapped[UUID] = mapped_column(
+		postgresql.UUID, primary_key=True, default=uuid.uuid4
+	)
 	username: Mapped[str] = mapped_column(String(30), nullable=False)
 	email: Mapped[str] = mapped_column(String(30))
 	password_hash: Mapped[str] = mapped_column(Text())
@@ -54,7 +63,9 @@ class Bird(Base):
 	__tablename__ = 'birds'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(primary_key=True)
+	id: Mapped[UUID] = mapped_column(
+		postgresql.UUID, primary_key=True, default=uuid.uuid4
+	)
 	bird_name: Mapped[str] = mapped_column(String(30))
 	scientific_name: Mapped[str] = mapped_column(String(30))
 	description: Mapped[str] = mapped_column(Text())
@@ -74,7 +85,9 @@ class BirdObservtion(Base):
 	__tablename__ = 'bird_observations'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(primary_key=True)
+	id: Mapped[UUID] = mapped_column(
+		postgresql.UUID, primary_key=True, default=uuid.uuid4
+	)
 	gender: Mapped[str] = mapped_column(String(30))
 	description: Mapped[str] = mapped_column(Text())
 	location_id: Mapped[UUID] = mapped_column(
@@ -98,7 +111,9 @@ class BirdImage(Base):
 	__tablename__ = 'bird_images'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(primary_key=True)
+	id: Mapped[UUID] = mapped_column(
+		postgresql.UUID, primary_key=True, default=uuid.uuid4
+	)
 	image: Mapped[str] = mapped_column(Text)
 	observation_id: Mapped[UUID] = mapped_column(
 		postgresql.UUID,

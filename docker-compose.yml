@@ -1,5 +1,11 @@
 version: '3'
 services:
+  fastapi_admin:
+    build:
+      context: admin
+      dockerfile: fastapi.Dockerfile
+    ports:
+      - "8000:8000"
   postgresql_database:
     build:
       context: postgresql-database

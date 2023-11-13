@@ -31,4 +31,4 @@ RUN apk update && \
 
 
 ENTRYPOINT ["poetry", "run"]
-CMD ["uvicorn", "main:app", "--reload"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

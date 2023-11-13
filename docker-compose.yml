@@ -4,6 +4,8 @@ services:
     build:
       context: admin
       dockerfile: fastapi.Dockerfile
+    env_file:
+      - admin/fastapi.env
     ports:
       - "8000:8000"
   postgresql_database:

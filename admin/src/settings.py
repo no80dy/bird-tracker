@@ -5,11 +5,11 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-	POSTGRESQL_USER: str = 'postgres'
-	POSTGRESQL_PASSWORD: str = 'Gfhjkm0995'
-	POSTGRESQL_HOST: str = 'localhost'
-	POSTGRESQL_PORT: int = 5432
-	POSTGRESQL_DB_NAME: str = 'birds_database'
+	POSTGRESQL_USER: str
+	POSTGRESQL_PASSWORD: str
+	POSTGRESQL_HOST: str
+	POSTGRESQL_PORT: int
+	POSTGRESQL_DB_NAME: str
 	POSTGRESQL_SCHEME: str = 'postgresql+asyncpg'
 
 	POSTGRESQL_CONNECTION: PostgresDsn | None = None

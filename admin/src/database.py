@@ -10,10 +10,12 @@ from sqlalchemy.ext.asyncio import (
 from .settings import settings
 
 
+engine = create_async_engine(
+	settings.POSTGRESQL_CONNECTION.unicode_string()
+)
+
+
 async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
-	engine = create_async_engine(
-		settings.POSTGRESQL_CONNECTION.unicode_string()
-	)
 	factory = async_sessionmaker(engine)
 
 	async with factory() as session:

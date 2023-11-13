@@ -1,6 +1,10 @@
 CREATE DATABASE birds_database;
 
+\c birds_database;
+
 CREATE SCHEMA IF NOT EXISTS content;
+
+SET search_path TO content;
 
 CREATE TABLE IF NOT EXISTS content.bird_statuses (
     id UUID PRIMARY KEY,

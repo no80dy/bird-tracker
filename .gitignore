@@ -1,4 +1,4 @@
-./admin/fastapi.env
-./postgresql-database/postgresql.env
+fastapi.env
+postgresql.env
 .idea/
 __pycache__/

@@ -27,7 +27,7 @@ FROM poetry_init AS fastapi_development_init
 WORKDIR $APP_PATH
 RUN apk update && \
   apk add poetry && \
-  poetry install
+  poetry install --no-cache
 
 
 ENTRYPOINT ["poetry", "run"]

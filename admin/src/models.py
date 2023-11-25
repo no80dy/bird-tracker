@@ -5,6 +5,8 @@ from datetime import datetime
 from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase
 from sqlalchemy import String, Text, Float, TIMESTAMP, ForeignKey
 from sqlalchemy.dialects import postgresql
+from fastapi_storages import FileSystemStorage
+from fastapi_storages.integrations.sqlalchemy import ImageType
 
 
 TABLE_SCHEMA_NAME = 'content'
@@ -125,6 +127,9 @@ class BirdObservtion(Base):
 	user: Mapped[User] = relationship()
 
 
+storage = FileSystemStorage(path="/tmp")
+
+
 class BirdImage(Base):
 	__tablename__ = 'bird_images'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
@@ -132,7 +137,7 @@ class BirdImage(Base):
 	id: Mapped[UUID] = mapped_column(
 		postgresql.UUID, primary_key=True, default=uuid.uuid4
 	)
-	image: Mapped[str] = mapped_column(Text)
+	image = mapped_column(ImageType(storage=storage))
 	observation_id: Mapped[UUID] = mapped_column(
 		postgresql.UUID,
 		ForeignKey(f'{TABLE_SCHEMA_NAME}.bird_observations.id')

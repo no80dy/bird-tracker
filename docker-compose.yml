@@ -8,6 +8,7 @@ services:
       - admin/fastapi.env
     ports:
       - "8000:8000"
+
   postgresql_database:
     build:
       context: postgresql-database
@@ -19,5 +20,14 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  nginx:
+    image: nginx:1.19.2
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      - fastapi_admin
+    ports:
+      - "80:80"
 volumes:
   pgdata:

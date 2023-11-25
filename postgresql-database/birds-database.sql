@@ -19,12 +19,11 @@ CREATE TABLE IF NOT EXISTS content.bird_locations(
     latitude FLOAT
 );
 
-
 CREATE TABLE IF NOT EXISTS content.users (
     id UUID PRIMARY KEY,
     username VARCHAR(30) NOT NULL,
     email VARCHAR(30) NOT NULL,
-    password_hash VARCHAR(30) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE
 );
 
@@ -51,4 +50,10 @@ CREATE TABLE IF NOT EXISTS content.bird_images (
     id UUID PRIMARY KEY,
     observation_id UUID NOT NULL REFERENCES content.bird_observations (id) ON DELETE CASCADE,
     image TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS content.user_tokens (
+    id UUID PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES content.users (id) ON DELETE CASCADE,
+    token VARCHAR(255) NOT NULL
 );

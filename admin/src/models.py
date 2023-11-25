@@ -46,6 +46,7 @@ class BirdLocation(Base):
 	longitude: Mapped[float] = mapped_column(Float())
 	latitude: Mapped[float] = mapped_column(Float())
 
+
 class User(Base):
 	__tablename__ = 'users'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
@@ -57,6 +58,23 @@ class User(Base):
 	email: Mapped[str] = mapped_column(String(30))
 	password_hash: Mapped[str] = mapped_column(Text())
 	created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True))
+
+	def __init__(self, username: str, email:  str, password_hash: str):
+		self.username = username
+		self.email = email
+		self.password_hash = password_hash
+
+
+class UserTokens(Base):
+	__tablename__ = 'user_tokens'
+	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
+
+	id: Mapped[UUID] = mapped_column(
+		postgresql.UUID, primary_key=True, default=uuid.uuid4
+	)
+
+	user_id: Mapped[UUID] = mapped_column(postgresql.UUID, ForeignKey(f'{TABLE_SCHEMA_NAME}.users.id'))
+	user: Mapped[User] = relationship()
 
 
 class Bird(Base):

@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import (
 	create_async_engine
 )
 
-from .settings import settings
+from settings import settings
 
 
 engine = create_async_engine(
@@ -23,5 +23,5 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
 			yield session
 			await session.commit()
 		except exc.SQLAlchemyError as err:
-			await  session.rollback()
+			await session.rollback()
 			raise err

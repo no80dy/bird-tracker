@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from sqladmin import Admin, ModelView
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from .models import (
+from models import (
 	Bird,
 	BirdFamily,
 	BirdObservtion,

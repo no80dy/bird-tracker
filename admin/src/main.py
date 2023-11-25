@@ -3,8 +3,8 @@ import uvicorn
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-from .admin import init_admin_session
-from .database import engine
+from admin import init_admin_session
+from database import engine
 
 
 @asynccontextmanager

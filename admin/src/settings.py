@@ -12,6 +12,8 @@ class Settings(BaseSettings):
 	POSTGRESQL_DB_NAME: str
 	POSTGRESQL_SCHEME: str = 'postgresql+asyncpg'
 
+	FASTAPI_SECRET_KEY: str
+
 	POSTGRESQL_CONNECTION: PostgresDsn | None = None
 
 	@field_validator('POSTGRESQL_CONNECTION', mode='before')
@@ -23,12 +25,12 @@ class Settings(BaseSettings):
 	) -> Any:
 		if not connection:
 			return PostgresDsn.build(
-			scheme=info.data['POSTGRESQL_SCHEME'],
-			username=info.data['POSTGRESQL_USER'],
-			password=info.data['POSTGRESQL_PASSWORD'],
-			host=info.data['POSTGRESQL_HOST'],
-			path=info.data['POSTGRESQL_DB_NAME']
-		)
+				scheme=info.data['POSTGRESQL_SCHEME'],
+				username=info.data['POSTGRESQL_USER'],
+				password=info.data['POSTGRESQL_PASSWORD'],
+				host=info.data['POSTGRESQL_HOST'],
+				path=info.data['POSTGRESQL_DB_NAME']
+			)
 		return connection
 
 

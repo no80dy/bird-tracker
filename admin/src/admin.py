@@ -16,7 +16,7 @@ from database import get_db_session
 from models import (
 	Bird,
 	BirdFamily,
-	BirdObservtion,
+	BirdObservation,
 	BirdLocation,
 	BirdStatus,
 	BirdImage,
@@ -38,11 +38,11 @@ class BirdFamilyAdmin(ModelView, model=BirdFamily):
 	column_list = [BirdFamily.id, BirdFamily.family_name, ]
 
 
-class BirdObservationAdmin(ModelView, model=BirdObservtion):
+class BirdObservationAdmin(ModelView, model=BirdObservation):
 	name = 'Bird observation'
 	name_plural = 'Bird observations'
 
-	column_list = [BirdObservtion.id, BirdObservtion.description, ]
+	column_list = [BirdObservation.id, BirdObservation.description, ]
 
 
 class BirdLocationAdmin(ModelView, model=BirdLocation):

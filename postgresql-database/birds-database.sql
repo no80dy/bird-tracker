@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS content.birds (
 
 CREATE TABLE IF NOT EXISTS content.bird_observations (
     id UUID PRIMARY KEY,
+    observation_name VARCHAR(30) NOT NULL,
     location_id UUID NOT NULL REFERENCES content.bird_locations (id) ON DELETE CASCADE,
     bird_id UUID NOT NULL REFERENCES content.birds (id) ON DELETE CASCADE,
     user_id UUID REFERENCES content.users (id) ON DELETE CASCADE,
@@ -50,10 +51,4 @@ CREATE TABLE IF NOT EXISTS content.bird_images (
     id UUID PRIMARY KEY,
     observation_id UUID NOT NULL REFERENCES content.bird_observations (id) ON DELETE CASCADE,
     image TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS content.user_tokens (
-    id UUID PRIMARY KEY,
-    user_id UUID NOT NULL REFERENCES content.users (id) ON DELETE CASCADE,
-    token VARCHAR(255) NOT NULL
 );

@@ -25,6 +25,11 @@ class BirdStatus(Base):
 	)
 	status_name: Mapped[str] = mapped_column(String(30))
 
+	def __str__(self):
+		return f'{self.status_name}'
+
+	def __repr__(self):
+		return f'<status_name: {self.status_name}>'
 
 
 class BirdFamily(Base):
@@ -37,6 +42,12 @@ class BirdFamily(Base):
 	family_name: Mapped[str] = mapped_column(Text())
 	description: Mapped[str] = mapped_column(Text())
 
+	def __str__(self):
+		return f'{self.family_name}'
+
+	def __repr__(self):
+		return f'<family_name: {self.family_name}>'
+
 
 class BirdLocation(Base):
 	__tablename__ = 'bird_locations'
@@ -47,6 +58,12 @@ class BirdLocation(Base):
 	)
 	longitude: Mapped[float] = mapped_column(Float())
 	latitude: Mapped[float] = mapped_column(Float())
+
+	def __str__(self):
+		return f'{self.longitude}, {self.latitude}'
+
+	def __repr__(self):
+		return f'<longitude: {self.longitude}, latitude: {self.latitude}>'
 
 
 class User(Base):
@@ -62,21 +79,16 @@ class User(Base):
 	created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True))
 
 	def __init__(self, username: str, email:  str, password_hash: str):
+		super().__init__()
 		self.username = username
 		self.email = email
 		self.password_hash = password_hash
 
+	def __str__(self):
+		return f'{self.username}'
 
-class UserTokens(Base):
-	__tablename__ = 'user_tokens'
-	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
-
-	id: Mapped[UUID] = mapped_column(
-		postgresql.UUID, primary_key=True, default=uuid.uuid4
-	)
-
-	user_id: Mapped[UUID] = mapped_column(postgresql.UUID, ForeignKey(f'{TABLE_SCHEMA_NAME}.users.id'))
-	user: Mapped[User] = relationship()
+	def __repr__(self):
+		return f'<user_name: {self.username}>'
 
 
 class Bird(Base):
@@ -97,17 +109,24 @@ class Bird(Base):
 		postgresql.UUID,
 		ForeignKey(f'{TABLE_SCHEMA_NAME}.bird_families.id')
 	)
-	status: Mapped[BirdStatus] = relationship()
-	family: Mapped[BirdFamily] = relationship()
+	status: Mapped[BirdStatus] = relationship(lazy='joined')
+	family: Mapped[BirdFamily] = relationship(lazy='joined')
+
+	def __str__(self):
+		return f'{self.bird_name}'
+
+	def __repr__(self):
+		return f'<bird_name: {self.bird_name}>'
 
 
-class BirdObservtion(Base):
+class BirdObservation(Base):
 	__tablename__ = 'bird_observations'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
 	id: Mapped[UUID] = mapped_column(
 		postgresql.UUID, primary_key=True, default=uuid.uuid4
 	)
+	observation_name: Mapped[str] = mapped_column(String(30))
 	gender: Mapped[str] = mapped_column(String(30))
 	description: Mapped[str] = mapped_column(Text())
 	location_id: Mapped[UUID] = mapped_column(
@@ -122,9 +141,19 @@ class BirdObservtion(Base):
 		postgresql.UUID,
 		ForeignKey(f'{TABLE_SCHEMA_NAME}.users.id')
 	)
-	location: Mapped[BirdLocation] = relationship()
-	bird: Mapped[Bird] = relationship()
-	user: Mapped[User] = relationship()
+	location: Mapped[BirdLocation] = relationship(lazy='joined')
+	bird: Mapped[Bird] = relationship(lazy='joined')
+	user: Mapped[User] = relationship(lazy='joined')
+
+	def __str__(self):
+		return f'{self.observation_name}'
+
+	def __repr__(self):
+		return (
+			f'<bird_name: {self.bird.bird_name}',
+			f'user_name: {self.user.username}',
+			f'bird_location: ({self.location.latitude})>'
+		)
 
 
 storage = FileSystemStorage(path="/tmp")
@@ -142,4 +171,10 @@ class BirdImage(Base):
 		postgresql.UUID,
 		ForeignKey(f'{TABLE_SCHEMA_NAME}.bird_observations.id')
 	)
-	observation: Mapped[BirdObservtion] = relationship()
+	observation: Mapped[BirdObservation] = relationship(lazy='joined')
+
+	def __str__(self):
+		return f'{self.image}'
+
+	def __repr__(self):
+		return f'<image: {self.observation}, observation: {self.observation.observation_name}>'

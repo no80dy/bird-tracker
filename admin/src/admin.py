@@ -28,25 +28,46 @@ class UserAdmin(ModelView, model=User):
 
 
 class BirdAdmin(ModelView, model=Bird):
+	form_columns = [
+		Bird.bird_name,
+		Bird.scientific_name,
+		Bird.description,
+		Bird.status,
+		Bird.family,
+	]
+
+	column_list = [
+		Bird.id,
+		Bird.bird_name,
+		Bird.scientific_name,
+	]
+
 	name = 'Bird'
 	name_plural = 'Birds'
 
-	column_list = [Bird.id, Bird.bird_name, Bird.scientific_name, ]
-
 
 class BirdFamilyAdmin(ModelView, model=BirdFamily):
-	name = 'Bird family'
-	name_plural = 'Bird families'
+	form_columns = [
+		BirdFamily.family_name,
+	]
 
 	column_list = [
 		BirdFamily.id,
 		BirdFamily.family_name,
 	]
 
+	name = 'Bird family'
+	name_plural = 'Bird families'
+
 
 class BirdObservationAdmin(ModelView, model=BirdObservation):
-	name = 'Bird observation'
-	name_plural = 'Bird observations'
+	form_columns = [
+		BirdObservation.observation_name,
+		BirdObservation.description,
+		BirdObservation.bird,
+		BirdObservation.gender,
+		BirdObservation.location
+	]
 
 	column_list = [
 		BirdObservation.id,
@@ -54,29 +75,48 @@ class BirdObservationAdmin(ModelView, model=BirdObservation):
 		BirdObservation.description,
 	]
 
+	name = 'Bird observation'
+	name_plural = 'Bird observations'
+
 
 class BirdLocationAdmin(ModelView, model=BirdLocation):
-	name = 'Bird location'
-	name_plural = 'Bird locations'
-
-	column_list = [
-		BirdLocation.id,
+	form_columns = [
+		BirdLocation.location_name,
 		BirdLocation.latitude,
 		BirdLocation.longitude,
 	]
 
+	column_list = [
+		BirdLocation.id,
+		BirdLocation.location_name,
+		BirdLocation.latitude,
+		BirdLocation.longitude,
+	]
+
+	name = 'Bird location'
+	name_plural = 'Bird locations'
+
 
 class BirdStatusAdmin(ModelView, model=BirdStatus):
-	name = 'Bird status'
-	name_plural = 'Bird statuses'
+	form_columns = [
+		BirdStatus.status_name,
+	]
 
 	column_list = [
 		BirdStatus.id,
 		BirdStatus.status_name,
 	]
 
+	name = 'Bird status'
+	name_plural = 'Bird statuses'
+
 
 class BirdImageAdmin(ModelView, model=BirdImage):
+	form_columns = [
+		BirdImage.image,
+		BirdImage.observation
+	]
+
 	name = 'Bird image'
 	name_plural = 'Bird images'
 

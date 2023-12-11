@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS content.bird_families (
 
 CREATE TABLE IF NOT EXISTS content.bird_locations(
     id UUID PRIMARY KEY,
+    location_name VARCHAR(50) NOT NULL,
     longitude FLOAT,
     latitude FLOAT,
 

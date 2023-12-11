@@ -16,13 +16,25 @@ class Base(DeclarativeBase):
 	pass
 
 
-class BirdStatus(Base):
-	__tablename__ = 'bird_statuses'
-	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
-
+class IdentifierMixin:
 	id: Mapped[UUID] = mapped_column(
 		postgresql.UUID, primary_key=True, default=uuid.uuid4
 	)
+
+
+class TimestampMixin:
+	created_at: Mapped[datetime] = mapped_column(
+		TIMESTAMP(timezone=True), default=datetime.utcnow
+	)
+	updated_at: Mapped[datetime] = mapped_column(
+		TIMESTAMP(timezone=True), default=datetime.utcnow
+	)
+
+
+class BirdStatus(TimestampMixin, IdentifierMixin, Base):
+	__tablename__ = 'bird_statuses'
+	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
+
 	status_name: Mapped[str] = mapped_column(String(30))
 
 	def __str__(self):
@@ -32,13 +44,10 @@ class BirdStatus(Base):
 		return f'<status_name: {self.status_name}>'
 
 
-class BirdFamily(Base):
+class BirdFamily(TimestampMixin, IdentifierMixin, Base):
 	__tablename__ = 'bird_families'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(
-		postgresql.UUID, primary_key=True, default=uuid.uuid4
-	)
 	family_name: Mapped[str] = mapped_column(Text())
 	description: Mapped[str] = mapped_column(Text())
 
@@ -49,30 +58,25 @@ class BirdFamily(Base):
 		return f'<family_name: {self.family_name}>'
 
 
-class BirdLocation(Base):
+class BirdLocation(TimestampMixin, IdentifierMixin, Base):
 	__tablename__ = 'bird_locations'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(
-		postgresql.UUID, primary_key=True, default=uuid.uuid4
-	)
+	location_name: Mapped[str] = mapped_column(String(50))
 	longitude: Mapped[float] = mapped_column(Float())
 	latitude: Mapped[float] = mapped_column(Float())
 
 	def __str__(self):
-		return f'{self.longitude}, {self.latitude}'
+		return f'{self.location_name}: ({self.longitude}, {self.latitude})'
 
 	def __repr__(self):
-		return f'<longitude: {self.longitude}, latitude: {self.latitude}>'
+		return f'<location_name: {self.location_name}, latitude: {self.latitude}, longitude: {self.longitude}>'
 
 
-class User(Base):
+class User(TimestampMixin, IdentifierMixin, Base):
 	__tablename__ = 'users'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(
-		postgresql.UUID, primary_key=True, default=uuid.uuid4
-	)
 	username: Mapped[str] = mapped_column(String(30), nullable=False)
 	email: Mapped[str] = mapped_column(String(30))
 	password_hash: Mapped[str] = mapped_column(Text())
@@ -91,13 +95,10 @@ class User(Base):
 		return f'<user_name: {self.username}>'
 
 
-class Bird(Base):
+class Bird(TimestampMixin, IdentifierMixin, Base):
 	__tablename__ = 'birds'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(
-		postgresql.UUID, primary_key=True, default=uuid.uuid4
-	)
 	bird_name: Mapped[str] = mapped_column(String(30))
 	scientific_name: Mapped[str] = mapped_column(String(30))
 	description: Mapped[str] = mapped_column(Text())
@@ -119,13 +120,10 @@ class Bird(Base):
 		return f'<bird_name: {self.bird_name}>'
 
 
-class BirdObservation(Base):
+class BirdObservation(IdentifierMixin, TimestampMixin, Base):
 	__tablename__ = 'bird_observations'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(
-		postgresql.UUID, primary_key=True, default=uuid.uuid4
-	)
 	observation_name: Mapped[str] = mapped_column(String(30))
 	gender: Mapped[str] = mapped_column(String(30))
 	description: Mapped[str] = mapped_column(Text())
@@ -159,13 +157,10 @@ class BirdObservation(Base):
 storage = FileSystemStorage(path="/tmp")
 
 
-class BirdImage(Base):
+class BirdImage(IdentifierMixin, TimestampMixin, Base):
 	__tablename__ = 'bird_images'
 	__table_args__ = {'schema': TABLE_SCHEMA_NAME}
 
-	id: Mapped[UUID] = mapped_column(
-		postgresql.UUID, primary_key=True, default=uuid.uuid4
-	)
 	image = mapped_column(ImageType(storage=storage))
 	observation_id: Mapped[UUID] = mapped_column(
 		postgresql.UUID,

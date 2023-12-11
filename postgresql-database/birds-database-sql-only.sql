@@ -128,4 +128,4 @@ CREATE TRIGGER bird_images_timestamp
 BEFORE INSERT OR UPDATE ON content.bird_images
 FOR EACH ROW EXECUTE FUNCTION content.update_timestamps();
 
-INSERT INTO content.users (id, username, email, password_hash) VALUES ('0b469d87-82cd-4544-a01e-8d99c167a81f', 'user', 'user@example.com', 'Gfhjkm0995')
+-- INSERT INTO content.users (id, username, email, password_hash) VALUES ('0b469d87-82cd-4544-a01e-8d99c167a81f', 'user', 'user@example.com', 'Gfhjkm0995')

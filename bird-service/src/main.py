@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 from admin.admin import init_admin_session
 from core.database import engine
 from core.settings import settings
-from api.v1 import user
+from api.v1 import user, bird
 
 
 @asynccontextmanager
@@ -25,7 +25,8 @@ app = FastAPI(
 	lifespan=lifespan
 )
 
-app.include_router(user.router, prefix='/api/v1/users', tags=['users'])
+app.include_router(user.router, prefix='/api/v1/users', tags=['users', ])
+app.include_router(bird.router, prefix='/api/v1/birds', tags=['birds', ])
 
 if __name__ == '__main__':
 	uvicorn.run(

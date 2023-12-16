@@ -142,6 +142,9 @@ class BirdObservation(IdentifierMixin, TimestampMixin, Base):
 	bird: Mapped[Bird] = relationship(lazy='joined')
 	user: Mapped[User] = relationship(lazy='joined')
 
+	def __init__(self, **kwargs):
+		super(BirdObservation, self).__init__(**kwargs)
+
 	def __str__(self):
 		return f'{self.observation_name}'
 

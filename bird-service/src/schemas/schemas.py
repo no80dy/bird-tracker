@@ -1,5 +1,8 @@
 from pydantic import BaseModel
 
-class UserLogin(BaseModel):
-	username: str
-	password: str
+class BirdObservationCreate(BaseModel):
+	observation_name: str
+	description: str
+	gender: str
+	bird_name: str
+	location_name: str

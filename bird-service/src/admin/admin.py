@@ -3,12 +3,11 @@ from typing import Any
 from fastapi import FastAPI
 from sqladmin import Admin, ModelView
 from sqlalchemy.ext.asyncio import AsyncEngine
-from starlette.requests import Request
 from passlib.hash import pbkdf2_sha512
 
-from auth import AdminAuth
-from settings import settings
-from models import (
+from .auth import AdminAuth
+from core.settings import settings
+from models.models import (
 	Bird,
 	BirdFamily,
 	BirdObservation,

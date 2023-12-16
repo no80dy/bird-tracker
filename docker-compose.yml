@@ -2,10 +2,10 @@ version: '3'
 services:
   fastapi_admin:
     build:
-      context: admin
+      context: bird-service
       dockerfile: fastapi.Dockerfile
     env_file:
-      - admin/fastapi.env
+      - bird-service/fastapi.env
     volumes:
       - ./media:/tmp
     ports:

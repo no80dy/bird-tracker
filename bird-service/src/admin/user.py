@@ -1,9 +1,8 @@
-from typing import Generator
-from models import User
+from models.models import User
 
 from sqlalchemy import select
 from passlib.hash import pbkdf2_sha512
-from database import get_db_session
+from core.database import get_db_session
 
 
 async def _get_user_by_username(username: str) -> User | None:

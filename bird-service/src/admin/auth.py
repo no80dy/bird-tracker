@@ -4,8 +4,8 @@ from urllib.parse import parse_qsl
 from starlette.requests import Request
 from sqladmin.authentication import AuthenticationBackend
 
-from settings import settings
-from user import verify_user, check_username_exists
+from core.settings import settings
+from .user import verify_user, check_username_exists
 
 
 class AdminAuth(AuthenticationBackend):

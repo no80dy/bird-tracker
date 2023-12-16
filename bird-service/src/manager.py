@@ -1,10 +1,9 @@
 import asyncio
 import typer
 from passlib.hash import pbkdf2_sha512
-from sqlalchemy import select
 
-from database import get_db_session
-from models import User
+from core.database import get_db_session
+from models.models import User
 
 
 async def create_user():

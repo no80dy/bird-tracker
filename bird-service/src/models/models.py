@@ -66,6 +66,9 @@ class BirdLocation(TimestampMixin, IdentifierMixin, Base):
 	longitude: Mapped[float] = mapped_column(Float())
 	latitude: Mapped[float] = mapped_column(Float())
 
+	def __init__(self, **kwargs):
+		super(BirdLocation, self).__init__(**kwargs)
+
 	def __str__(self):
 		return f'{self.location_name}: ({self.longitude}, {self.latitude})'
 

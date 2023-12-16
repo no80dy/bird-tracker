@@ -5,6 +5,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+	PROJECT_NAME: str = 'birds-service'
 	POSTGRESQL_USER: str
 	POSTGRESQL_PASSWORD: str
 	POSTGRESQL_HOST: str

@@ -6,6 +6,8 @@ services:
       dockerfile: fastapi.Dockerfile
     env_file:
       - admin/fastapi.env
+    volumes:
+      - ./media:/tmp
     ports:
       - "8000:8000"
 

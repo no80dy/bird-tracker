@@ -24,7 +24,26 @@ class UserAdmin(ModelView, model=User):
 	name_plural = 'Users'
 	can_edit = False
 
-	column_list = [User.id, User.username, User.email, ]
+	form_columns = [
+		User.username,
+		User.email,
+		User.password_hash,
+	]
+
+	column_list = [
+		User.id,
+		User.username,
+		User.email,
+	]
+
+	async def on_model_change(
+		self,
+		data: dict,
+		model: Any,
+		is_created: bool
+	) -> None:
+		data['password_hash'] = pbkdf2_sha512.hash(data['password_hash'])
+		await super().on_model_change(data, model, is_created)
 
 
 class BirdAdmin(ModelView, model=Bird):
@@ -65,6 +84,7 @@ class BirdObservationAdmin(ModelView, model=BirdObservation):
 		BirdObservation.observation_name,
 		BirdObservation.description,
 		BirdObservation.bird,
+		BirdObservation.user,
 		BirdObservation.gender,
 		BirdObservation.location
 	]

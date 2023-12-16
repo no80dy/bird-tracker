@@ -80,13 +80,9 @@ class User(TimestampMixin, IdentifierMixin, Base):
 	username: Mapped[str] = mapped_column(String(30), nullable=False)
 	email: Mapped[str] = mapped_column(String(30))
 	password_hash: Mapped[str] = mapped_column(Text())
-	created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True))
 
-	def __init__(self, username: str, email:  str, password_hash: str):
-		super().__init__()
-		self.username = username
-		self.email = email
-		self.password_hash = password_hash
+	def __init__(self, **kwargs):
+		super(User, self).__init__(**kwargs)
 
 	def __str__(self):
 		return f'{self.username}'

@@ -55,7 +55,6 @@ class ObservationService:
 		observations = (await self.session.execute(
 			select(BirdObservation)
 		)).unique().scalars().all()
-		images = observations[0].images
 		return [
 			BirdObservationRead(
 				observation_name=observation.observation_name,

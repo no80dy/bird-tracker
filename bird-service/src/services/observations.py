@@ -62,7 +62,7 @@ class ObservationService:
 				user_name=observation.user.username,
 				location_name=observation.location.location_name,
 				bird_name=observation.bird.bird_name,
-				bird_images=[image.image for image in images]
+				bird_images=[image.image for image in observation.images]
 			)
 			for observation in observations
 		]

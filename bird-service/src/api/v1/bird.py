@@ -1,5 +1,3 @@
-from pydantic import BaseModel
-
 import jwt
 from typing import Annotated
 
@@ -13,14 +11,14 @@ from services.observations import (
 	ObservationService, get_bird_observation_service
 )
 from services.users import UserService, get_user_service
-from schemas.schemas import BirdObservationCreate, BirdObservationRead
+from schemas.schemas import BirdObservationCreate
 
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/api/v1/users/token')
 
 
-@router.post('/bird_observation')
+@router.post('/observations')
 async def add_bird_observation(
 	bird_observation: BirdObservationCreate,
 	token: Annotated[OAuth2PasswordBearer, Depends(oauth2_scheme)],
@@ -51,7 +49,7 @@ async def add_bird_observation(
 	}
 
 
-@router.get('/bird_observations')
+@router.get('/observations')
 async def get_bird_observations(
 	token: Annotated[OAuth2PasswordBearer, Depends(oauth2_scheme)],
 	bird_observation_service: Annotated[ObservationService, Depends(get_bird_observation_service)]

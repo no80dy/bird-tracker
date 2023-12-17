@@ -14,7 +14,7 @@ class UserService:
 
 	async def get_user_by_username(self, username: str) -> User:
 		user = (await self.session.execute(
-			select(User).where(User.username==username)
+			select(User).where(User.username == username)
 		)).scalar()
 
 		return user

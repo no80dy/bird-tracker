@@ -22,14 +22,14 @@ class ObservationService:
 		bird_observation_data: dict
 	) -> BirdObservation | None:
 		user = (await self.session.execute(
-			select(User).where(User.username==username)
+			select(User).where(User.username == username)
 		)).scalar()
 		bird = (await self.session.execute(
-			select(Bird).where(Bird.bird_name==bird_observation_data['bird_name'])
+			select(Bird).where(Bird.bird_name == bird_observation_data['bird_name'])
 		)).scalar()
 		location = (await self.session.execute(
 			select(BirdLocation).where(
-				BirdLocation.location_name==bird_observation_data['location_name']
+				BirdLocation.location_name == bird_observation_data['location_name']
 			)
 		)).scalar()
 

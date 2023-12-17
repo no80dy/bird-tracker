@@ -7,7 +7,7 @@ services:
     env_file:
       - bird-service/fastapi.env
     volumes:
-      - ./media:/tmp
+      - ./tmp:/tmp
     ports:
       - "8000:8000"
 

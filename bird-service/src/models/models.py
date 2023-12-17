@@ -141,6 +141,7 @@ class BirdObservation(IdentifierMixin, TimestampMixin, Base):
 	location: Mapped[BirdLocation] = relationship(lazy='joined')
 	bird: Mapped[Bird] = relationship(lazy='joined')
 	user: Mapped[User] = relationship(lazy='joined')
+	images: Mapped[list['BirdImage']] = relationship(lazy='joined', back_populates='observation')
 
 	def __init__(self, **kwargs):
 		super(BirdObservation, self).__init__(**kwargs)
@@ -168,7 +169,7 @@ class BirdImage(IdentifierMixin, TimestampMixin, Base):
 		postgresql.UUID,
 		ForeignKey(f'{TABLE_SCHEMA_NAME}.bird_observations.id')
 	)
-	observation: Mapped[BirdObservation] = relationship(lazy='joined')
+	observation: Mapped[BirdObservation] = relationship(lazy='joined', back_populates='images')
 
 	def __str__(self):
 		return f'{self.image}'

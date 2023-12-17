@@ -2,10 +2,11 @@ from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sqlalchemy import select
-from models.models import BirdLocation, BirdObservation, Bird
+from models.models import BirdLocation, BirdObservation, Bird, BirdImage
 from core.database import get_db_session
 
 from models.models import User
+from schemas.schemas import BirdObservationRead
 
 
 class ObservationService:
@@ -49,6 +50,23 @@ class ObservationService:
 		await self.session.refresh(observation)
 
 		return observation
+
+	async def get_all_bird_observations(self) -> list[BirdObservationRead]:
+		observations = (await self.session.execute(
+			select(BirdObservation)
+		)).unique().scalars().all()
+		images = observations[0].images
+		return [
+			BirdObservationRead(
+				observation_name=observation.observation_name,
+				description=observation.description,
+				user_name=observation.user.username,
+				location_name=observation.location.location_name,
+				bird_name=observation.bird.bird_name,
+				bird_images=[image.image for image in images]
+			)
+			for observation in observations
+		]
 
 
 async def get_bird_observation_service(

@@ -13,7 +13,7 @@ from services.observations import (
 	ObservationService, get_bird_observation_service
 )
 from services.users import UserService, get_user_service
-from schemas.schemas import BirdObservationCreate
+from schemas.schemas import BirdObservationCreate, BirdObservationRead
 
 
 router = APIRouter()
@@ -49,3 +49,12 @@ async def add_bird_observation(
 	return {
 		'observation_name': created_observation.observation_name
 	}
+
+
+@router.get('/bird_observations')
+async def get_bird_observations(
+	token: Annotated[OAuth2PasswordBearer, Depends(oauth2_scheme)],
+	bird_observation_service: Annotated[ObservationService, Depends(get_bird_observation_service)]
+):
+	observations = await bird_observation_service.get_all_bird_observations()
+	return [dict(observation) for observation in observations]

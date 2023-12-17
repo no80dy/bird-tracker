@@ -3,6 +3,7 @@ import uvicorn
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from admin.admin import init_admin_session
 from core.database import engine
@@ -24,6 +25,7 @@ app = FastAPI(
 	default_response_class=JSONResponse,
 	lifespan=lifespan
 )
+app.mount("/tmp", StaticFiles(directory="/tmp"), name="images")
 
 app.include_router(user.router, prefix='/api/v1/users', tags=['users', ])
 app.include_router(bird.router, prefix='/api/v1/birds', tags=['birds', ])

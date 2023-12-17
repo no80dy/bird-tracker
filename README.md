@@ -12,6 +12,7 @@
 - [Ссылка на запросы к базе данных](https://github.com/no80dy/bird-tracker/blob/main/postgresql-database/birds-database-queries.sql)
 - [Ссылка на процедуры к базе данных](https://github.com/no80dy/bird-tracker/blob/main/postgresql-database/birds-database-functions.sql)
 - [Ссылка на триггеры к базе данных](https://github.com/no80dy/bird-tracker/blob/main/postgresql-database/birds-database-triggers.sql)
+- [Ссылка на индексы к базе данных](https://github.com/no80dy/bird-tracker/blob/main/postgresql-database/birds-database-indexes.sql)
 
 ## Схема базы данных `birds_database`
 
